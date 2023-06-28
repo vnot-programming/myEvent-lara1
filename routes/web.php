@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// if ($_SERVER['REQUEST_URI'] != '/nova') { Route::get('/{page}', function($page) { return view("pages.{$page}"); }); }

@@ -17,7 +17,7 @@ class Venue extends Model
     //     return $this->hasManyThrough(Venue::class, Event::class);
     // }
 
-    public function event(){
+    public function events(){
         return $this->hasMany(Event::class);
     }
 }

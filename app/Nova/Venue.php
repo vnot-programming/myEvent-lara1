@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -13,39 +14,32 @@ use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Country;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Venue extends Resource
 {
-    /**
-     * The model the resource corresponds to.
-     *
-     * @var class-string<\App\Models\Venue>
-     */
     public static $model = \App\Models\Venue::class;
-
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
     public static $title = 'tittle';
-
-    /**
-     * The columns that should be searched.
-     *
-     * @var array
-     */
     public static $search = [
         'id','tittle','country_code','address',
     ];
-
-    /**
-     * Get the fields displayed by the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
+    public static function redirectAfterCreate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey();
+    }
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey();
+    }
+    public static function redirectAfterDelete(NovaRequest $request)
+    {
+        return null;
+    }
+    public static $tableStyle = 'tight';
+    public static $clickAction = 'select';
+    public static $perPageOptions = [10,20,50];
+    public static $trafficCop = true;
     public function fields(NovaRequest $request)
     {
         return [
@@ -53,7 +47,9 @@ class Venue extends Resource
 
             Slug::make('Slug')
                 ->from('tittle')
-                ->required()
+                ->rules('required')
+                ->updateRules('required','unique:venues,slug,{{resourceId}}')
+                ->creationRules('unique:venues,tittle,{{resourceId}}')
                 ->withMeta(['extraAttributes' => ['readonly' => true]])
                 ->showOnPreview()
                 ->sortable(),
@@ -63,15 +59,15 @@ class Venue extends Resource
             Markdown::make('Description')
             ->showOnPreview(),
             Text::make('Venue Type','type')
-            ->showOnPreview(),
+            ->showOnPreview()->hideFromIndex(),
             Markdown::make('Address')
             ->showOnPreview(),
             Place::make('City'),
-            Text::make('State'),
-            Country::make('Country','country_code'),
-            Text::make('Zip Code','zipcode'),
-            Text::make('Latitude'),
-            Text::make('Longitude'),
+            Text::make('State')->hideFromIndex(),
+            Country::make('Country','country_code')->hideFromIndex(),
+            Text::make('Zip Code','zipcode')->hideFromIndex(),
+            Text::make('Latitude')->hideFromIndex(),
+            Text::make('Longitude')->hideFromIndex(),
             Image::make('Images')
             ->disk('public')
             ->path('images/venues')
@@ -82,9 +78,14 @@ class Venue extends Resource
                 })
             ->showOnPreview()
             ->prunable(),
-            // Image::make('Thumb'),
+           // Image::make('Thumb'),
             Boolean::make('Status','status')
+            ->trueValue('1')
+            ->falseValue('0')
+            ->withMeta(['value' => $this->status ?? true])
             ->showOnPreview(),
+
+            HasMany::make('Events')
         ];
     }
 

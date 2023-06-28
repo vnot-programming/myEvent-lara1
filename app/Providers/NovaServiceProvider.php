@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Illuminate\Http\Request;
+use Vyuldashev\NovaPermission\PermissionPolicy;
+use Vyuldashev\NovaPermission\RolePolicy;
 use Vyuldashev\NovaPermission\NovaPermissionTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -22,6 +24,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::userTimezone(function (Request $request) {
             return $request->user()?->timezone;
         });
+
+        $this->getFooterContent();
     }
 
     /**
@@ -74,7 +78,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             // ...
-            \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
+            // \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
+
+            /* sukses */
+            NovaPermissionTool::make()
+            ->rolePolicy(RolePolicy::class)
+            ->permissionPolicy(PermissionPolicy::class),
+
+            // new \Pktharindu\NovaPermissions\NovaPermissions(),
         ];
     }
 

@@ -6,6 +6,8 @@ use Laravel\Nova\Http\Middleware\Authorize;
 use Laravel\Nova\Http\Middleware\BootTools;
 use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
 use Laravel\Nova\Http\Middleware\HandleInertiaRequests;
+use Vyuldashev\NovaPermission\ForgetCachedPermissions;
+
 
 return [
 
@@ -59,7 +61,7 @@ return [
     |
     */
 
-    'path' => '/nova',
+    'path' => '/admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +105,7 @@ return [
         HandleInertiaRequests::class,
         DispatchServingNovaEvent::class,
         BootTools::class,
-        \Vyuldashev\NovaPermission\ForgetCachedPermissions::class,
+        ForgetCachedPermissions::class,
     ],
 
     'api_middleware' => [
@@ -149,7 +151,7 @@ return [
     |
     */
 
-    'currency' => 'USD',
+    'currency' => 'Rp.',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,7 +166,8 @@ return [
     */
 
     // 'brand' => [
-    //     'logo' => resource_path('/img/example-logo.svg'),
+    //     // 'logo' => resource_path('/images/logo.png'),
+    //     'logo' => resource_path('/img/logo2.svg'),
 
     //     'colors' => [
     //         "400" => "24, 182, 155, 0.5",

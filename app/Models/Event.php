@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Event extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 
@@ -22,11 +23,15 @@ class Event extends Model
     // }
 
     public function venues(){
-        return $this->belongsTo(Venue::class,'venues_id', 'id');
+        return $this->belongsTo(Venue::class,'venue_id', 'id');
     }
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
+
+    protected $attributes = [
+        'status' => true,
     ];
 }

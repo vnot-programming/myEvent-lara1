@@ -10,33 +10,35 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Markdown;
+use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\Avatar;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class EventTag extends Resource
 {
-    /**
-     * The model the resource corresponds to.
-     *
-     * @var class-string<\App\Models\EventTag>
-     */
     public static $model = \App\Models\EventTag::class;
-
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
     public static $title = 'tittle';
-
-    /**
-     * The columns that should be searched.
-     *
-     * @var array
-     */
     public static $search = [
         'id','slug','tittle',
     ];
+
+    public static function redirectAfterCreate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey();
+    }
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey();
+    }
+    public static function redirectAfterDelete(NovaRequest $request)
+    {
+        return null;
+    }
+    public static $tableStyle = 'tight';
+    public static $clickAction = 'select';
+    public static $perPageOptions = [10,20,50];
+    public static $trafficCop = true;
 
     /**
      * Get the fields displayed by the resource.
@@ -52,7 +54,7 @@ class EventTag extends Resource
                 ->required()
                 ->withMeta(['extraAttributes' => ['readonly' => true]])
                 ->showOnPreview()
-                ->sortable(),
+                ->sortable()->hideFromIndex(),
             Text::make('Tittle')->sortable()->required()
             ->showOnPreview()
             ->help('Type your Tittle. example: Name of People, Product Sponsor, etc'),
@@ -67,20 +69,46 @@ class EventTag extends Resource
             ->showOnPreview(),
             Text::make('Phone'),
             Text::make('Email'),
-            Text::make('Facebook'),
-            Text::make('Instagram'),
-            Text::make('Twitter'),
-            Text::make('Linkedin'),
-            Image::make('Images')
-            ->disk('public')
-            ->path('images/event-tags')
-            ->thumbnail(function ($value, $disk) {
-                    return $value
-                        ? Storage::disk($disk)->url($value)
-                        : null;
-                })
-            ->showOnPreview()
+            Text::make('Facebook')->hideFromIndex(),
+            Text::make('Instagram')->hideFromIndex(),
+            Text::make('Twitter')->hideFromIndex(),
+            Text::make('Linkedin')->hideFromIndex(),
+            // Avatar::make('Avatar')
+            // ->disk('public')
+            // ->path('images/event-tags')
+            // ->store(function (Request $request, $model) {
+            //     return [
+            //         'avatar' => $request->avatar->storePublicly(config('app.env').
+            //             '/avatars', ['disk' => 'public'])
+            //     ];
+            // })->preview(function () {
+            //     return $this->value
+            //                 ? Storage::disk($this->disk)->url($this->value)
+            //                 : null;
+            // })
+            // ->prunable(),
+            Avatar::make('Avatar')
+            ->store(function (Request $request, $model) {
+                return [
+                    'avatar' => $request->avatar->storePublicly('images/event-tags'.
+                        '/avatars', ['disk' => 'public'])
+                ];
+            })->preview(function () {
+                return $this->value
+                            ? Storage::disk($this->disk)->url($this->value)
+                            : null;
+            })->showOnPreview()
             ->prunable(),
+            // Image::make('Images')
+            // ->disk('public')
+            // ->path('images/event-tags')
+            // ->thumbnail(function ($value, $disk) {
+            //         return $value
+            //             ? Storage::disk($disk)->url($value)
+            //             : null;
+            //     })
+            // ->showOnPreview()
+            // ->prunable(),
             // Image::make('Thumb'),
             Boolean::make('Status','status')
             ->showOnPreview(),
