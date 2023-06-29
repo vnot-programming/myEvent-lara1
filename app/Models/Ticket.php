@@ -14,6 +14,17 @@ class Ticket extends Model
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes,HasRoles;
 
     protected $guarded = [];
+    protected $fillable = [
+        'tittle',
+        'price',
+        'quantity',
+        'description',
+        'customer_limit',
+        'sale_start_date',
+        'sale_end_date',
+        'sale_price',
+        'status',
+    ];
 
     // public function berlokasi(){
     //     return $this->belongsTo(Venue::class, 'venues_id');

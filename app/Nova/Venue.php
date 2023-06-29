@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\Event;
+use App\Models\Venue as ModelsVenue;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -19,7 +20,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Venue extends Resource
 {
-    public static $model = \App\Models\Venue::class;
+    public static $model = ModelsVenue::class;
     public static $title = 'tittle';
     public static $search = [
         'id','tittle','country_code','address',

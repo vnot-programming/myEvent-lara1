@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\Ticket as ModelsTicket;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -31,7 +32,7 @@ class Ticket extends Resource
      *
      * @var class-string<\App\Models\Ticket>
      */
-    public static $model = \App\Models\Ticket::class;
+    public static $model = ModelsTicket::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -76,38 +77,38 @@ class Ticket extends Resource
         return [
             // ID::make()->sortable(),
             Slug::make('Slug')
-            ->from('tittle')
-            ->rules('required')
-            ->updateRules('required','unique:events,slug,{{resourceId}}')
-            ->creationRules('unique:events,tittle,{{resourceId}}')
-            ->withMeta(['extraAttributes' => ['readonly' => true]])
-            ->showOnPreview()
-            ->sortable()
-            ->hideFromIndex(),
+                ->from('tittle')
+                ->rules('required')
+                ->updateRules('required','unique:events,slug,{{resourceId}}')
+                ->creationRules('unique:events,tittle,{{resourceId}}')
+                ->withMeta(['extraAttributes' => ['readonly' => true]])
+                ->showOnPreview()
+                ->sortable()
+                ->hideFromIndex(),
             Text::make('Ticket Tittle', 'tittle')
-            ->rules('required')
-            ->updateRules('required','unique:tickets,tittle,{{resourceId}}')
-            ->creationRules('unique:tickets,tittle,{{resourceId}}')
-            ->sortable()->showOnPreview()
-            ->help('Type your Ticket Tittle'),
+                ->rules('required')
+                ->updateRules('required','unique:tickets,tittle,{{resourceId}}')
+                ->creationRules('unique:tickets,tittle,{{resourceId}}')
+                ->sortable()->showOnPreview()
+                ->help('Type your Ticket Tittle'),
             Currency::make('Price')
-            ->sortable()->showOnPreview()
-            ->symbol('Rp.')
-            ->nullable()
-            ->min(100)->max(1000000)->step(100),
+                ->sortable()->showOnPreview()
+                ->symbol('Rp.')
+                ->nullable()
+                ->min(100)->max(1000000)->step(100),
             Number::make('Quantity')
-            ->sortable()->showOnPreview(),
+                ->sortable()->showOnPreview(),
             Markdown::make('Description'),
             Number::make('Buying Limit', 'customer_limit')
-            ->sortable()->showOnPreview(),
+                ->sortable()->showOnPreview(),
             DateTime::make('Sale Start Date', 'sale_start_date')
-            ->displayUsing(fn ($value) => $value ? $value->format('d/m/Y, g:ia') : '')
-            ->sortable()->showOnPreview()
-            ->hideFromIndex(),
+                ->displayUsing(fn ($value) => $value ? $value->format('d/m/Y, g:ia') : '')
+                ->sortable()->showOnPreview()
+                ->hideFromIndex(),
             DateTime::make('Sale End Date', 'sale_end_date')
-            ->displayUsing(fn ($value) => $value ? $value->format('d/m/Y, g:ia') : '')
-            ->sortable()->showOnPreview()
-            ->hideFromIndex(),
+                ->displayUsing(fn ($value) => $value ? $value->format('d/m/Y, g:ia') : '')
+                ->sortable()->showOnPreview()
+                ->hideFromIndex(),
             Boolean::make('Donation?', 'is_donation'),
             Boolean::make('Status'),
         ];
