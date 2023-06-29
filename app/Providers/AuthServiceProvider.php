@@ -10,6 +10,8 @@ use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
 use Pktharindu\NovaPermissions\Traits\ValidatesPermissions;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Spatie\Permission\Models\Permission;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,11 +23,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         //
-        Category::class=>CategoryPolicy::class,
         \Pktharindu\NovaPermissions\Role::class => \App\Policies\RolePolicy::class,
 
         User::class => UserPolicy::class,
-        Role::class => RolePolicy::class,
+        Category::class=>CategoryPolicy::class,
 
     ];
 
@@ -36,14 +37,25 @@ class AuthServiceProvider extends ServiceProvider
     {
         //
         $this->registerPolicies();
-        foreach (config('nova-permissions.permissions') as $key => $permissions) {
-            Gate::define($key, function (User $user) use ($key) {
-                if ($this->nobodyHasAccess($key)) {
-                    return true;
-                }
+        // foreach (config('nova-permissions.permissions') as $key => $permissions) {
+        //     Gate::define($key, function (User $user) use ($key) {
+        //         if ($this->nobodyHasAccess($key)) {
+        //             return true;
+        //         }
 
-                return $user->hasPermissionTo($key);
-            });
+        //         return $user->hasPermissionTo($key);
+        //     });
+        // }
+        // Implicitly grant "Super-Admin" role all permission checks using can()
+       Gate::before(function ($user, $ability) {
+        if ($user->hasRole('Super-Admin')) {
+            return true;
         }
+    });
+    }
+
+    protected function getPermissions()
+    {
+        return Permission::with('roles')->get();
     }
 }

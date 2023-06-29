@@ -29,8 +29,12 @@ class CategoryPolicy
         // }else{
         //     return false;
         // }
-
-        return $user->hasPermissionTo('manage category');
+        if ($user->hasRole('Super-Admin')) {
+            return true;
+        }else{
+            return $user->hasPermissionTo('manage category');
+        }
+        // return $user->hasPermissionTo('manage category');
     }
 
     // /* *
@@ -40,6 +44,11 @@ class CategoryPolicy
     {
         //
         // return true;
+        if ($user->hasRole('Super-Admin')) {
+            return true;
+        }else{
+            return $user->hasPermissionTo('manage category');
+        }
         return $user->hasPermissionTo('manage category');
     }
 
@@ -49,35 +58,55 @@ class CategoryPolicy
     public function create(User $user): bool
     {
         //
+        if ($user->hasRole('Super-Admin')) {
+            return true;
+        }else{
+            return $user->hasPermissionTo('create category');
+        }
         return $user->hasPermissionTo('create category');
     }
 
-    // /**
-    //  * Determine whether the user can update the model.
-    //  */
-    // public function update(User $user, Category $category): bool
-    // {
-    //     //
-    //     return true;
-    // }
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user): bool
+    {
+        //
+        if ($user->hasRole('Super-Admin')) {
+            return true;
+        }else{
+            return $user->hasPermissionTo('edit category');
+        }
+        return $user->hasPermissionTo('edit category');
+    }
 
-    // /**
-    //  * Determine whether the user can delete the model.
-    //  */
-    // public function delete(User $user, Category $category): bool
-    // {
-    //     //
-    //     return true;
-    // }
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user): bool
+    {
+        //
+        if ($user->hasRole('Super-Admin')) {
+            return true;
+        }else{
+            return $user->hasPermissionTo('delete category');
+        }
+        return $user->hasPermissionTo('delete category');
+    }
 
-    // /**
-    //  * Determine whether the user can restore the model.
-    //  */
-    // public function restore(User $user, Category $category): bool
-    // {
-    //     //
-    //     return true;
-    // }
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function restore(User $user, Category $category): bool
+    {
+        //
+        if ($user->hasRole('Super-Admin')) {
+            return true;
+        }else{
+            return $user->hasPermissionTo('restore category');
+        }
+        // return true;
+    }
 
     // /**
     //  * Determine whether the user can permanently delete the model.

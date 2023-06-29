@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\User as ModelsUser;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -38,7 +39,7 @@ class User extends Resource
      *
      * @var class-string<\App\Models\User>
      */
-    public static $model = \App\Models\User::class;
+    public static $model = ModelsUser::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

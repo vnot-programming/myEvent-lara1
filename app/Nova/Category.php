@@ -14,28 +14,27 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Category extends Resource
 {
-    /**
-     * The model the resource corresponds to.
-     *
-     * @var class-string<\App\Models\Category>
-     */
     public static $model = \App\Models\Category::class;
-
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
     public static $title = 'name';
-
-    /**
-     * The columns that should be searched.
-     *
-     * @var array
-     */
     public static $search = [
         'id',
     ];
+    public static function redirectAfterCreate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey();
+    }
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey();
+    }
+    public static function redirectAfterDelete(NovaRequest $request)
+    {
+        return null;
+    }
+    public static $tableStyle = 'tight';
+    public static $clickAction = 'select';
+    public static $perPageOptions = [10,20,50];
+    public static $trafficCop = true;
 
     /**
      * Get the fields displayed by the resource.

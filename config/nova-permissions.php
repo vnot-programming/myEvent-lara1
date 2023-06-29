@@ -57,7 +57,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'permissions' => [
+    // 'permissions' => [
     //     'manage users' => [
     //         'display_name' => 'View users',
     //         'description'  => 'Can view users',
@@ -168,5 +168,5 @@ return [
     //         'description'  => 'Can delete category',
     //         'group'        => 'Events',
     //     ],
-    ],
+    // ],
 ];
