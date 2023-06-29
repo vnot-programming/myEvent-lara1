@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\User as ModelsUser;
+use App\Nova\Metrics\NewUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -121,7 +122,9 @@ class User extends Resource
      */
     public function cards(NovaRequest $request)
     {
-        return [];
+        return [
+            new NewUsers(),
+        ];
     }
 
     /**

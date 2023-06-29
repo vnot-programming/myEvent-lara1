@@ -27,13 +27,9 @@ use Laravel\Nova\Actions\ExportAsCsv;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 // use Illuminate\Notifications\Action;
 use App\Exports\UsersExport;
+use App\Nova\Metrics\NewEvents;
 use Maatwebsite\Excel\Facades\Excel;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
-
-
-
-
-
 
 class Event extends Resource
 {
@@ -202,7 +198,9 @@ class Event extends Resource
      */
     public function cards(NovaRequest $request)
     {
-        return [];
+        return [
+            new NewEvents(),
+        ];
     }
 
     /**
