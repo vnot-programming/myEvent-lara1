@@ -23,11 +23,12 @@ class VenuePolicy
     public function viewAny(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage venues');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage venues');
+        // }
     }
 
     /**
@@ -36,11 +37,12 @@ class VenuePolicy
     public function view(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage venues');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage venues');
+        // }
     }
 
     /**
@@ -49,11 +51,12 @@ class VenuePolicy
     public function create(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('create venues');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('create venues');
+        // }
     }
 
     /**
@@ -62,11 +65,12 @@ class VenuePolicy
     public function update(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('edit venues');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('edit venues');
+        // }
     }
 
     /**
@@ -75,11 +79,12 @@ class VenuePolicy
     public function delete(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('delete venues');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('delete venues');
+        // }
     }
 
     /**
@@ -88,11 +93,12 @@ class VenuePolicy
     public function restore(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('restore venues');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('restore venues');
+        // }
     }
 
     // /**

@@ -15,11 +15,12 @@ class UserPolicy
     public function viewAny(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage users');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage users');
+        // }
         // if ($post->published) {
         //     return true;
         // }
@@ -45,20 +46,12 @@ class UserPolicy
     public function view(User $user): bool
     {
         //
-        // if ($user->hasPermissionTo('manage users')) {
-        //     return $user->id === $model->user_id;
-        // }
-
-        // return $user->hasPermissionTo('manage users');
-
-        // if ($user->can('manage users')) {
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
         //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage users');
         // }
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage users');
-        }
     }
 
     // /**
@@ -67,16 +60,12 @@ class UserPolicy
     public function create(User $user): bool
     {
         //
-        // return $user->hasPermissionTo('create users');
-
-        // if ($user->can('create users')) {
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
         //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('create users');
         // }
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('create users');
-        }
         // return $user->can('create users');
     }
 
@@ -86,15 +75,12 @@ class UserPolicy
     public function update(User $user): bool
     {
         //
-        // return $user->hasPermissionTo('edit users');
-        // if ($user->can('edit users')) {
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
         //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('edit users');
         // }
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('edit users');
-        }
         // return $user->can('edit users');
     }
 
@@ -104,15 +90,12 @@ class UserPolicy
     public function delete(User $user): bool
     {
         //
-        // return $user->hasPermissionTo('delete users');
-        // if ($user->can('delete users')) {
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
         //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('delete users');
         // }
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('delete users');
-        }
         // return $user->can('delete users');
     }
 
@@ -122,11 +105,12 @@ class UserPolicy
     public function restore(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('restore users');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('restore users');
+        // }
         // return $user->can('restore users');
     }
 

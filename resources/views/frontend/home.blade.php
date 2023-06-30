@@ -8,12 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Festava Live - Bootstrap 5 CSS Template</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.plyr.io/3.6.8/plyr.css" rel="stylesheet"/>
     {{-- resource_path --}}
 
     <link href="{{ asset('../frontend/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -33,9 +34,12 @@ https://templatemo.com/tm-583-festava-live
 </head>
 
 <body>
-
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0"
+        nonce="yUMgYs56">
+    </script>
     <main>
-
         <header class="site-header">
             <div class="container">
                 <div class="row">
@@ -43,7 +47,7 @@ https://templatemo.com/tm-583-festava-live
                     <div class="col-lg-12 col-12 d-flex flex-wrap">
                         <p class="d-flex me-4 mb-0">
                             <i class="bi-person custom-icon me-2"></i>
-                            <strong class="text-dark">Welcome to Music Festival 2023</strong>
+                            <strong class="text-dark">Welcome to {{ config('app.name') }} | {{ now()->year }}</strong>
                         </p>
                     </div>
 
@@ -54,11 +58,11 @@ https://templatemo.com/tm-583-festava-live
 
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{ route('frontend.home') }}">
                     Festava Live
                 </a>
 
-                <a href="ticket.blade.php" class="btn custom-btn d-lg-none ms-auto me-4">Buy Ticket</a>
+                <a href="{{ route('frontend.ticket') }}" class="btn custom-btn d-lg-none ms-auto me-4">Buy Ticket</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,51 +103,57 @@ https://templatemo.com/tm-583-festava-live
         </nav>
 
 
+        @forelse ($eventData as $event)
         <section class="hero-section" id="section_1">
             <div class="section-overlay"></div>
-
             <div class="container d-flex justify-content-center align-items-center">
                 <div class="row">
-
                     <div class="col-12 mt-auto mb-5 text-center">
-                        <small>Festava Live Presents</small>
-
-                        <h1 class="text-white mb-5">Night Live 2023</h1>
-
-                        <a class="btn custom-btn smoothscroll" href="#section_2">Let's begin</a>
+                        <small>{{ config('app.name') }}</small>
+                        <h1 class="text-white mb-5">{{ $event->tittle }}</h1>
+                        <a class="btn custom-btn smoothscroll" href="{{ $event->id }}">Let's begin</a>
                     </div>
 
                     <div class="col-lg-12 col-12 mt-auto d-flex flex-column flex-lg-row text-center">
                         <div class="date-wrap">
                             <h5 class="text-white">
                                 <i class="custom-icon bi-clock me-2"></i>
-                                10 - 12<sup>th</sup>, Dec 2023
+                                {{ $event->start_date }} - {{ $event->end_date }}
                             </h5>
                         </div>
 
                         <div class="location-wrap mx-auto py-3 py-lg-0">
                             <h5 class="text-white">
                                 <i class="custom-icon bi-geo-alt me-2"></i>
-                                National Center, United States
+                                {{ $event->venue_id  }}
                             </h5>
                         </div>
 
                         <div class="social-share">
                             <ul class="social-icon d-flex align-items-center justify-content-center">
                                 <span class="text-white me-3">Share:</span>
-
+                                {{-- <div class="fb-share-button"
+                                data-href="https://developers.facebook.com/docs/plugins/"
+                                data-layout="" data-size="">
+                                    <a target="_blank"
+                                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                                    class="fb-xfbml-parse-ignore">Share</a></div> --}}
                                 <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link">
-                                        <span class="bi-facebook"></span>
-                                    </a>
+                                    <div class="fb-share-button"
+                                        data-href="https://developers.facebook.com/docs/plugins/"
+                                        data-layout="" data-size="">
+                                        <a target="_blank"
+                                            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                                            class="social-icon-link">
+                                            <span class="bi-facebook"></span>
+                                        </a>
+                                    </div>
                                 </li>
-
                                 <li class="social-icon-item">
                                     <a href="#" class="social-icon-link">
                                         <span class="bi-twitter"></span>
                                     </a>
                                 </li>
-
                                 <li class="social-icon-item">
                                     <a href="#" class="social-icon-link">
                                         <span class="bi-instagram"></span>
@@ -157,12 +167,49 @@ https://templatemo.com/tm-583-festava-live
 
             <div class="video-wrap">
                 <video autoplay="" loop="" muted="" class="custom-video" poster="">
-                    <source src="{{ asset('../frontend/video/pexels-2022395.mp4') }}" type="video/mp4">
-
+                    {{-- <source src="{{ asset('../frontend/video/pexels-2022395.mp4') }}" type="video/mp4"> --}}
+                    {{-- <source src="{{ asset('../storage/images/events/videos/sample-promotion.mp4') }}" type="video/mp4"> --}}
+                    {{-- <source src="{{ asset('uploads/media/gLLMIFHOvNSio6zZG8RM96X2H0UMeqUoEx2ptHLL.mp4') }}" type="video/mp4"> --}}
+                    <source src="{{ asset('uploads/media/$event->start_date') }}" type="video/mp4">
+                    {{-- <source src="https://www.youtube-nocookie.com/embed/YUikseVI58A?controls=0&&disable_polymer=true" type="video/mp4"> --}}
                     Your browser does not support the video tag.
                 </video>
+
+                {{-- <div class="plyr__video-embed" id="player"> --}}
+                    {{-- <iframe
+                      src="https://www.youtube.com/watch?v=YUikseVI58A?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                      allowfullscreen
+                      allowtransparency
+                      allow="autoplay"
+                    ></iframe> --}}
+
+                    {{-- <iframe video autoplay="" loop="" muted=""
+                        src="https://www.youtube-nocookie.com/embed/YUikseVI58A?controls=0&&disable_polymer=true"
+                        title="YouTube video player"
+                        allowfullscreen
+                        allowtransparency
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media;"
+                        allowfullscreen>
+                    </iframe> --}}
+
+                    {{-- <iframe
+                        width="560" height="315"
+                        src="https://www.youtube.com/embed/YUikseVI58A"
+                        frameborder="0"
+                        allowfullscreen
+                        allowtransparency
+                        allow="autoplay"
+                        allowfullscreen>
+                    </iframe> --}}
+                {{-- </div> --}}
             </div>
         </section>
+        @empty
+        <p class="mb-0">
+            <strong>No Featured</strong>
+        </p>
+        @endforelse
 
 
         <section class="about-section section-padding" id="section_2">
@@ -319,6 +366,119 @@ https://templatemo.com/tm-583-festava-live
             </div>
         </section>
 
+
+        <section class="event-list-section section-padding" id="section_3">
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-12 text-center">
+                        <h2 class="mb-4">Events List</h1>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="artists-thumb">
+                            @forelse ( $eventData as $event)
+                            <div class="artists-image-wrap">
+                                <img src="{{ $event->poster }}"
+                                    class="artists-image img-fluid">
+                            </div>
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Madona
+                                </p>
+
+                                <p>
+                                    <strong>Birthdate:</strong>
+                                    August 16, 1958
+                                </p>
+
+                                <p>
+                                    <strong>Music:</strong>
+                                    Pop, R&amp;B
+                                </p>
+
+                                <hr>
+
+                                <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Madona Official</a>
+                                </p>
+                            </div>
+                            @empty
+                            <p class="mb-0">
+                                <strong>No Events</strong>
+                            </p>
+                            @endforelse
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="artists-thumb">
+                            <div class="artists-image-wrap">
+                                <img src="{{ asset('../frontend/images/artists/abstral-official-bdlMO9z5yco-unsplash.jpg') }}"
+                                    class="artists-image img-fluid">
+                            </div>
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Rihana
+                                </p>
+
+                                <p>
+                                    <strong>Birthdate:</strong>
+                                    Feb 20, 1988
+                                </p>
+
+                                <p>
+                                    <strong>Music:</strong>
+                                    Country
+                                </p>
+
+                                <hr>
+
+                                <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Rihana Official</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="artists-thumb">
+                            <img src="{{ asset('../frontend/images/artists/soundtrap-rAT6FJ6wltE-unsplash.jpg') }}"
+                                class="artists-image img-fluid">
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Bruno Bros
+                                </p>
+
+                                <p>
+                                    <strong>Birthdate:</strong>
+                                    October 8, 1985
+                                </p>
+
+                                <p>
+                                    <strong>Music:</strong>
+                                    Pop
+                                </p>
+
+                                <hr>
+
+                                <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Bruno Official</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
 
         <section class="schedule-section section-padding" id="section_4">
             <div class="container">
@@ -729,6 +889,8 @@ T e m p l a t e M o
     <!-- Styles -->
     {{-- <link href="{{ asset('css/pizza.css') }}" rel="stylesheet"> --}}
     <!-- Scripts -->
+
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
     <script src="{{ asset('../frontend/js/jquery.min.js') }}"></script>
     <script src="{{ asset('../frontend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('../frontend/js/jquery.sticky.js') }}"></script>

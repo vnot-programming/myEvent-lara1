@@ -27,9 +27,11 @@ use Laravel\Nova\Actions\ExportAsCsv;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 // use Illuminate\Notifications\Action;
 use App\Exports\UsersExport;
+use App\Models\Event as ModelsEvent;
 use App\Nova\Metrics\NewEvents;
 use Maatwebsite\Excel\Facades\Excel;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
+use Mostafaznv\NovaVideo\Video;
 
 class Event extends Resource
 {
@@ -72,8 +74,7 @@ class Event extends Resource
      *
      * @var class-string<\App\Models\Event>
      */
-    public static $model = \App\Models\Event::class;
-
+    public static $model = ModelsEvent::class;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -159,8 +160,16 @@ class Event extends Resource
                         : null;
                 })
             ->hideFromIndex()->showOnPreview()->prunable(),
-            Text::make('Video Link', 'video_link')
-            ->hideFromIndex()->sortable()->showOnPreview()->help('Type your Video Link'),
+
+            Video::make(trans('Video'), 'video_link', 'media')
+                ->rules('file', 'max:25000', 'mimes:mp4', 'mimetypes:video/mp4')
+                ->creationRules('required')
+                ->updateRules('nullable')
+                ->hideFromIndex()
+                ->showOnPreview()
+                ->help('Upload your Video (MAKSIMAL 25MB) Format .mp4')->prunable(),
+            // Text::make('Video Link', 'video_link')
+            // ->hideFromIndex()->sortable()->showOnPreview()->help('Type your Video Link'),
             // HasMany::make('Venues'),
             // belongsTo::make('Venues')->sortable()->searchable()->showOnPreview(),
             // BelongsTo::make('Venues')

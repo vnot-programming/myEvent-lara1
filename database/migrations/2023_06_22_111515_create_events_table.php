@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mostafaznv\Larupload\LaruploadEnum;
 
 return new class extends Migration
 {
@@ -19,13 +20,14 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('poster')->nullable();
             $table->string('images')->nullable();
+            // $table->upload('video_link', LaruploadEnum::LIGHT_MODE);
             $table->string('video_link')->nullable();
             $table->dateTime('start_date', $precision = 0)->nullable();
             $table->dateTime('end_date', $precision = 0)->nullable();
             $table->time('start_time', $precision = 0)->nullable();
             $table->time('end_time', $precision = 0)->nullable();
             $table->string('repetitive')->nullable();
-            $table->string('featured')->nullable();
+            $table->boolean('featured')->nullable();
             $table->boolean('status')->default(true);
             $table->text('meta_title')->nullable();
             $table->text('meta_keywords')->nullable();

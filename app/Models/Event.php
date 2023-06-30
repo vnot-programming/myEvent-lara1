@@ -9,8 +9,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+// use Mostafaznv\Larupload\Enums\LaruploadMediaStyle;
+// use Mostafaznv\Larupload\Enums\LaruploadMode;
+// use Mostafaznv\Larupload\Enums\LaruploadNamingMethod;
+// use Mostafaznv\Larupload\Storage\Attachment;
+// use Mostafaznv\Larupload\Traits\Larupload;
+
 class Event extends Model
 {
+    // use HasApiTokens, HasFactory, Notifiable, SoftDeletes,HasRoles,Larupload;
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes,HasRoles;
 
     protected $guarded = [];
@@ -35,4 +42,13 @@ class Event extends Model
     protected $attributes = [
         'status' => true,
     ];
+
+    // public function attachments(): array
+    // {
+    //     return [
+    //         Attachment::make('video', LaruploadMode::LIGHT)
+    //             ->namingMethod(LaruploadNamingMethod::HASH_FILE)
+    //             ->coverStyle('cover', 852, 480, LaruploadMediaStyle::AUTO)
+    //     ];
+    // }
 }

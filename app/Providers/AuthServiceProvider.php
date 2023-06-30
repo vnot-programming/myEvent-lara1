@@ -4,10 +4,18 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use App\Models\Category;
+use App\Models\Event;
+use App\Models\EventTag;
+use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Venue;
 use App\Policies\CategoryPolicy;
+use App\Policies\EventsPolicy;
+use App\Policies\EventsTagsPolicy;
 use App\Policies\RolePolicy;
+use App\Policies\TicketsPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\VenuePolicy;
 use Pktharindu\NovaPermissions\Traits\ValidatesPermissions;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Spatie\Permission\Models\Permission;
@@ -25,8 +33,12 @@ class AuthServiceProvider extends ServiceProvider
         //
         \Pktharindu\NovaPermissions\Role::class => \App\Policies\RolePolicy::class,
 
-        User::class => UserPolicy::class,
-        Category::class=>CategoryPolicy::class,
+        // User::class => UserPolicy::class,
+        // Category::class=>CategoryPolicy::class,
+        // Event::class=>EventsPolicy::class,
+        // EventTag::class=>EventsTagsPolicy::class,
+        // Ticket::class=>TicketsPolicy::class,
+        // Venue::class=>VenuePolicy::class,
 
     ];
 

@@ -13,11 +13,12 @@ class TicketsPolicy
     public function viewAny(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage tickets');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage tickets');
+        // }
     }
 
     /**
@@ -26,11 +27,12 @@ class TicketsPolicy
     public function view(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage tickets');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage tickets');
+        // }
     }
 
     /**
@@ -39,11 +41,12 @@ class TicketsPolicy
     public function create(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('create tickets');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('create tickets');
+        // }
     }
 
     /**
@@ -52,11 +55,12 @@ class TicketsPolicy
     public function update(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('edit tickets');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('edit tickets');
+        // }
     }
 
     /**
@@ -65,11 +69,12 @@ class TicketsPolicy
     public function delete(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('delete tickets');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('delete tickets');
+        // }
     }
 
     /**
@@ -78,11 +83,12 @@ class TicketsPolicy
     public function restore(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('restore tickets');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('restore tickets');
+        // }
     }
 
     // /**

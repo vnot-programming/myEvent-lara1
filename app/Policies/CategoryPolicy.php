@@ -23,17 +23,17 @@ class CategoryPolicy
     public function viewAny(User $user): bool
     {
         //
-        // return true;
+        return true;
         // if ($user->type == 'admin2') {
         //     return true;
         // }else{
         //     return false;
         // }
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage category');
-        }
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage category');
+        // }
         // return $user->hasPermissionTo('manage category');
     }
 
@@ -43,13 +43,13 @@ class CategoryPolicy
     public function view(User $user, Category $category): bool
     {
         //
-        // return true;
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('manage category');
-        }
-        return $user->hasPermissionTo('manage category');
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('manage category');
+        // }
+        // return $user->hasPermissionTo('manage category');
     }
 
     /**
@@ -58,12 +58,13 @@ class CategoryPolicy
     public function create(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('create category');
-        }
-        return $user->hasPermissionTo('create category');
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('create category');
+        // }
+        // return $user->hasPermissionTo('create category');
     }
 
     /**
@@ -72,12 +73,13 @@ class CategoryPolicy
     public function update(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('edit category');
-        }
-        return $user->hasPermissionTo('edit category');
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('edit category');
+        // }
+        // return $user->hasPermissionTo('edit category');
     }
 
     /**
@@ -86,12 +88,13 @@ class CategoryPolicy
     public function delete(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('delete category');
-        }
-        return $user->hasPermissionTo('delete category');
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('delete category');
+        // }
+        // return $user->hasPermissionTo('delete category');
     }
 
     /**
@@ -100,12 +103,12 @@ class CategoryPolicy
     public function restore(User $user, Category $category): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('restore category');
-        }
-        // return true;
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('restore category');
+        // }
     }
 
     // /**

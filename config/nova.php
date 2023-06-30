@@ -104,7 +104,7 @@ return [
         'web',
         HandleInertiaRequests::class,
         DispatchServingNovaEvent::class,
-        BootTools::class,
+        // BootTools::class,
         ForgetCachedPermissions::class,
     ],
 

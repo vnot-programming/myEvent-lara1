@@ -191,8 +191,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             /* sukses */
             NovaPermissionTool::make()
-            ->rolePolicy(RolePolicy::class)
-            ->permissionPolicy(PermissionPolicy::class),
+                ->rolePolicy(RolePolicy::class)
+                ->permissionPolicy(PermissionPolicy::class),
 
             // new \Pktharindu\NovaPermissions\NovaPermissions(),
         ];

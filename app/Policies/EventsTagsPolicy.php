@@ -23,6 +23,7 @@ class EventsTagsPolicy
     public function viewAny(User $user): bool
     {
         //
+        return true;
         if ($user->hasRole('Super-Admin')) {
             return true;
         }else{
@@ -36,6 +37,7 @@ class EventsTagsPolicy
     public function view(User $user, User $model): bool
     {
         //
+        return true;
         if ($user->hasRole('Super-Admin')) {
             return true;
         }else{
@@ -49,11 +51,12 @@ class EventsTagsPolicy
     public function create(User $user): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('create events');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('create events');
+        // }
     }
 
     /**
@@ -62,11 +65,12 @@ class EventsTagsPolicy
     public function update(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('edit events');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('edit events');
+        // }
     }
 
     /**
@@ -75,11 +79,12 @@ class EventsTagsPolicy
     public function delete(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('delete events');
-        }
+        return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('delete events');
+        // }
     }
 
     /**
@@ -88,11 +93,12 @@ class EventsTagsPolicy
     public function restore(User $user, User $model): bool
     {
         //
-        if ($user->hasRole('Super-Admin')) {
-            return true;
-        }else{
-            return $user->hasPermissionTo('restore events');
-        }
+        // return true;
+        // if ($user->hasRole('Super-Admin')) {
+        //     return true;
+        // }else{
+        //     return $user->hasPermissionTo('restore events');
+        // }
     }
 
     // /**
