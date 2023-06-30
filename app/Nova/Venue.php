@@ -81,10 +81,10 @@ class Venue extends Resource
             ->prunable(),
            // Image::make('Thumb'),
             Boolean::make('Status','status')
-            ->trueValue('1')
-            ->falseValue('0')
-            ->withMeta(['value' => $this->status ?? true])
-            ->showOnPreview(),
+                ->trueValue('1')
+                ->falseValue('0')
+                ->withMeta(['value' => $this->status ?? true])
+                ->showOnPreview(),
 
             HasMany::make('Events')
         ];

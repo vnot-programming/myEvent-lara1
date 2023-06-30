@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="29" viewBox="0 0 128 29">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 23.342px;
+        fill: #fffefe;
+        font-family: Philosopher;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <text id="My_Events" data-name="My Events" class="cls-1" transform="translate(0.956 22.439) scale(1.16 1.36)">My Events</text>
+</svg>
